@@ -1,0 +1,2 @@
+C:\Dev\Microsoft Visual Studio\workspace\Engine2D\Debug\Engine2D.exe
+C:\Dev\Microsoft Visual Studio\workspace\Engine2D\Debug\Engine2D.pdb
