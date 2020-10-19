@@ -1,6 +1,4 @@
-#include <iostream>
-#include "Engine.h"
-#include <vector>
+#include "Drawer.h"
 
 using namespace std;
 
@@ -9,20 +7,46 @@ int main() {
 
 		eng->Init("Test Silnika 2D", false, SVGA);
 
-		eng->Clear();
+		Drawer* drawer = new Drawer(eng->GetBuffer());
 
-		/* Test metody DrawTriangle i DrawPixels */
-		Point2D point1 = { 200, 200, al_map_rgb(255, 0, 0) };
-		Point2D point2 = { 500, 500, al_map_rgb(255, 0, 0) };
-		Point2D point3 = { 500, 200, al_map_rgb(255, 0, 0) };
+		drawer->Clear();
 
-		vector <Point2D> pixels;
-		pixels.push_back(point1);
-		pixels.push_back(point2);
-		pixels.push_back(point3);
+		/* Test metod DrawTriangle i DrawPixels */
+		{
+			Point2D point1 = { 100, 100, al_map_rgb(255, 0, 0) };
+			Point2D point2 = { 300, 100, al_map_rgb(255, 0, 0) };
+			Point2D point3 = { 100, 300, al_map_rgb(255, 0, 0) };
 
-		eng->DrawTriangle(point1, point2, point3, al_map_rgb(0, 0, 255));
-		eng->DrawPixels(pixels);
+			vector <Point2D> pixels;
+			pixels.push_back(point1);
+			pixels.push_back(point2);
+			pixels.push_back(point3);
+
+			drawer->DrawTriangle(point1, point2, point3, al_map_rgb(0, 0, 255));
+			drawer->DrawPixels(pixels);
+		}
+		/* Test metod DrawLineSegment */
+		{
+
+			vector <Point2D> pixels;
+			pixels.push_back({ 200, 300, al_map_rgb(255, 0, 0) });
+			pixels.push_back({ 400, 400, al_map_rgb(255, 0, 0) });
+			pixels.push_back({ 500, 300, al_map_rgb(255, 0, 0) });
+			pixels.push_back({ 400, 200, al_map_rgb(255, 0, 0) });
+
+			drawer->DrawLineSegment(pixels, false);
+
+			vector <LineSegment> lineSegments;
+			LineSegment ls1 = { { 700, 200, NULL }, { 600, 100, NULL }, al_map_rgb(0, 255, 0) };
+			LineSegment ls2 = { { 600, 100, NULL }, { 400, 100, NULL }, al_map_rgb(0, 255, 0) };
+			LineSegment ls3 = { { 400, 100, NULL }, { 700, 200, NULL }, al_map_rgb(0, 255, 0) };
+			lineSegments.push_back(ls1);
+			lineSegments.push_back(ls2);
+			lineSegments.push_back(ls3);
+
+			drawer->DrawLineSegment(lineSegments);
+		}
+
 
 		eng->MainLoop();
 

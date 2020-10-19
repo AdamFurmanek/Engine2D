@@ -1,7 +1,8 @@
 #include <iostream>
+#include <vector>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_native_dialog.h>
-#include <vector>
+#include <allegro5/allegro_primitives.h>
 
 using namespace std;
 
@@ -15,12 +16,6 @@ enum resolution
 	HD,
 	/* 1920x1080 */
 	FULLHD
-};
-
-struct Point2D {
-	int x;
-	int y;
-	ALLEGRO_COLOR c;
 };
 
 class Engine
@@ -52,13 +47,11 @@ private:
 public:
 	static Engine* GetInstance();
 	void Init(string Title, bool fullscreen, resolution res);
+	ALLEGRO_BITMAP* GetBuffer();
 	void Exception(string Error);
 	void MainLoop();
 	void Render();
 	void Events();
 
-	void Clear();
-	void DrawPixels(vector <Point2D> pixels);
-	void DrawTriangle(Point2D a, Point2D b, Point2D c, ALLEGRO_COLOR co);
 };
 

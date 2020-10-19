@@ -1,9 +1,4 @@
-#include <iostream>
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_native_dialog.h>
 #include "Engine.h"
-#include <allegro5/allegro_primitives.h>
-#include <vector>
 
 using namespace std;
 
@@ -98,6 +93,10 @@ void Engine::Init(string Title, bool fullscreen, resolution res) {
 
 }
 
+ALLEGRO_BITMAP* Engine::GetBuffer() {
+	return buffer;
+}
+
 void Engine::Exception(string Error) {
     al_show_native_message_box(NULL,"Error",Error.c_str(),"The program has been stopped.",NULL,ALLEGRO_MESSAGEBOX_ERROR);
 	exit(0);
@@ -143,20 +142,4 @@ void Engine::Events() {
 
 	default: break;
 	}
-}
-
-void Engine::Clear() {
-	al_set_target_bitmap(buffer);
-	al_clear_to_color(al_map_rgb(0, 0, 0));
-}
-
-void Engine::DrawPixels(vector <Point2D> pixels) {
-	al_set_target_bitmap(buffer);
-	for (int i = 0; i < pixels.size();i++) {
-		al_draw_pixel(pixels[i].x, pixels[i].y, pixels[i].c);
-	}
-}
-
-void Engine::DrawTriangle(Point2D a, Point2D b, Point2D c, ALLEGRO_COLOR co) {
-	al_draw_triangle(a.x, a.y, b.x, b.y, c.x, c.y, co, 1);
 }
