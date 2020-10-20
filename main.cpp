@@ -47,6 +47,24 @@ int main() {
 			drawer->DrawLineSegment(lineSegments);
 		}
 
+		/* Test Viewport */
+		{
+			Viewport viewport = { { 50, 50, al_map_rgb(255, 255, 255) }, { 450, 450, al_map_rgb(255, 255, 255) } };
+			drawer->DrawLineSegment(viewport.getPoints(), false);
+
+			vector <LineSegment> lineSegments;
+			LineSegment ls1 = { { 100, 300, NULL }, { 200, 350, NULL }, al_map_rgb(100, 255, 100) };
+			LineSegment ls2 = { { 200, 350, NULL }, { 300, 500, NULL }, al_map_rgb(100, 255, 100) };
+			LineSegment ls3 = { { 300, 500, NULL }, { 100, 500, NULL }, al_map_rgb(100, 255, 100) };
+			LineSegment ls4 = { { 25, 200, NULL }, { 600, 200, NULL }, al_map_rgb(100, 255, 100) };
+			lineSegments.push_back(ls1);
+			lineSegments.push_back(ls2);
+			lineSegments.push_back(ls3);
+			//drawer->DrawLineSegment(lineSegments);
+			drawer->DrawLineSegment(viewport.cut(lineSegments));
+			//drawer->DrawLineSegment(ls4);
+			drawer->DrawLineSegment(viewport.cut(ls4));
+		}
 
 		eng->MainLoop();
 

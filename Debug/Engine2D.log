@@ -1,2 +1,3 @@
 ﻿  main.cpp
+C:\Dev\Microsoft Visual Studio\workspace\Engine2D\Drawer.h(113,21): warning C4018: '<': signed/unsigned mismatch
   Engine2D.vcxproj -> C:\Dev\Microsoft Visual Studio\workspace\Engine2D\Debug\Engine2D.exe

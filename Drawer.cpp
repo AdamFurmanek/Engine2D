@@ -67,7 +67,6 @@ void Drawer::DrawLineSegment(LineSegment lineSegment) {
 	/* Skoœny odcinek */
 	else {
 		double m = dy / dx;
-		cout << m;
 		double y = y0;
 		for (int x = x0;x <= x1;x++) {
 			al_draw_pixel(x, int(y + 0.5), lineSegment.getC());
