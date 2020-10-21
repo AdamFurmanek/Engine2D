@@ -1,22 +1,15 @@
+#ifndef Engine_h
+#define Engine_h
+
 #include <iostream>
 #include <vector>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_native_dialog.h>
 #include <allegro5/allegro_primitives.h>
+#include "Enums.h"
+#include "Elements.h"
 
 using namespace std;
-
-enum resolution
-{
-	/* 640x480 */
-	VGA,
-	/* 800x600 */
-	SVGA,
-	/* 1280x720 */
-	HD,
-	/* 1920x1080 */
-	FULLHD
-};
 
 class Engine
 {
@@ -55,3 +48,4 @@ public:
 
 };
 
+#endif

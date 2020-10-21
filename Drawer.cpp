@@ -93,3 +93,68 @@ void Drawer::DrawLineSegment(vector <Point2D> pixels, bool open) {
 		DrawLineSegment(ls);
 	}
 }
+
+void Drawer::DrawCircle(Point2D point, double R, bool octagonalSymetry) {
+	al_set_target_bitmap(buffer);
+	double PI = 3.14159265358979323846;
+	double x0 = point.x;
+	double y0 = point.y;
+	if (!octagonalSymetry) {
+		for (double a = 0;a < PI / 2;a += (1 / R)) {
+			al_put_pixel(x0 + R * cos(a), y0 + R * sin(a), point.c);
+			al_put_pixel(x0 - R * cos(a), y0 + R * sin(a), point.c);
+			al_put_pixel(x0 + R * cos(a), y0 - R * sin(a), point.c);
+			al_put_pixel(x0 - R * cos(a), y0 - R * sin(a), point.c);
+		}
+	}
+	else {
+		for (double a = 0;a < PI / 4;a += (1 / R)) {
+			al_put_pixel(x0 + R * cos(a), y0 + R * sin(a), point.c);
+			al_put_pixel(x0 - R * cos(a), y0 + R * sin(a), point.c);
+			al_put_pixel(x0 + R * cos(a), y0 - R * sin(a), point.c);
+			al_put_pixel(x0 - R * cos(a), y0 - R * sin(a), point.c);
+
+			al_put_pixel(x0 + R * sin(a), y0 + R * cos(a), point.c);
+			al_put_pixel(x0 - R * sin(a), y0 + R * cos(a), point.c);
+			al_put_pixel(x0 + R * sin(a), y0 - R * cos(a), point.c);
+			al_put_pixel(x0 - R * sin(a), y0 - R * cos(a), point.c);
+		}
+	}
+}
+
+void Drawer::Fill(Point2D point, bool Recursion) {
+	if (Recursion)
+		FillRecursion(point, al_get_pixel(buffer, point.x, point.y));
+	else
+		FillSet(point, al_get_pixel(buffer, point.x, point.y));
+}
+
+void Drawer::FillSet(Point2D p, ALLEGRO_COLOR wantedColor) {
+	stack<Point2D> stack;
+
+	stack.push(p);
+
+	while (stack.size() > 0) {
+		Point2D point = stack.top();
+		stack.pop();
+
+		if (!memcmp(&al_get_pixel(buffer, point.x, point.y), &wantedColor, sizeof(ALLEGRO_COLOR))) {
+			al_put_pixel(point.x, point.y, p.c);
+
+			stack.push({ point.x - 1, point.y });
+			stack.push({ point.x + 1, point.y });
+			stack.push({ point.x, point.y - 1 });
+			stack.push({ point.x, point.y + 1 });
+		}
+	}
+}
+
+void Drawer::FillRecursion(Point2D point, ALLEGRO_COLOR wantedColor) {
+	if (!memcmp(&al_get_pixel(buffer, point.x, point.y), &wantedColor, sizeof(ALLEGRO_COLOR))) {
+		al_put_pixel(point.x, point.y, point.c);
+		FillRecursion({ point.x, point.y - 1, point.c }, wantedColor);
+		FillRecursion({ point.x - 1, point.y, point.c }, wantedColor);
+		FillRecursion({ point.x, point.y + 1, point.c }, wantedColor);
+		FillRecursion({ point.x + 1, point.y, point.c }, wantedColor);
+	}
+}
