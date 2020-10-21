@@ -1,13 +1,11 @@
 #ifndef Engine_h
 #define Engine_h
 
-#include <iostream>
-#include <vector>
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_native_dialog.h>
-#include <allegro5/allegro_primitives.h>
 #include "Enums.h"
-#include "Elements.h"
+#include <allegro5/allegro.h>
+#include <iostream>
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_native_dialog.h>
 
 using namespace std;
 

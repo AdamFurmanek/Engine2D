@@ -1,8 +1,11 @@
 #ifndef Drawer_h
 #define Drawer_h
 
-#include "Engine.h"
+#include <vector>
 #include <stack>
+#include <allegro5/allegro_primitives.h>
+#include "Point2D.h"
+#include "LineSegment.h"
 
 using namespace std;
 

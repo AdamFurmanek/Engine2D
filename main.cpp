@@ -1,4 +1,12 @@
+#include <allegro5/allegro.h>
+#include "Point2D.h"
+#include "Enums.h"
+#include "BoundingBox.h"
+#include <iostream>
 #include "Drawer.h"
+#include "Viewport.h"
+#include "ShapeCircle.h"
+#include "ShapeObjectCircle.h"
 #include "Engine.h"
 
 using namespace std;
@@ -6,7 +14,7 @@ using namespace std;
 int main() {
 		Engine* eng = Engine::GetInstance();
 
-		eng->Init("Test Silnika 2D", false, SVGA);
+		eng->Init("Test Silnika 2D", false, HD);
 
 		Drawer* drawer = new Drawer(eng->GetBuffer());
 
@@ -73,9 +81,58 @@ int main() {
 
 			drawer->Fill({ 120,120, DarkRed }, false);
 		}
-		
+
+		/* Test BoundingBox */
+		{
+			BoundingBox bb1 = { { 800, 400, Red } ,{ 900, 300, Red } };
+			BoundingBox bb2 = { { 750, 350, Blue } ,{ 850, 450, Blue } };
+			BoundingBox bb3 = { { 1000, 350, Yellow } ,{ 1100, 450, Yellow } };
+			drawer->DrawLineSegment(bb1.getPoints(), false);
+			drawer->DrawLineSegment(bb2.getPoints(), false);
+			drawer->DrawLineSegment(bb3.getPoints(), false);
+
+			if (bb1.Colission(bb1, bb2))
+				cout << " 1 i 2 nachodz¹";
+			if (bb1.Colission(bb1, bb3))
+				cout << " 1 i 3 nachodz¹";
+		}
+
+		/* Test Shape i ShapeObject */
+		{
+			ShapeCircle shapeCircle = { { 800, 600, Red } , 50 };
+			shapeCircle.Draw(eng->GetBuffer());
+			shapeCircle.DrawBoundingBox(eng->GetBuffer());
+
+			ShapeCircle shapeCircle2 = { { 850, 650, Blue } , 50 };
+			shapeCircle2.Draw(eng->GetBuffer());
+			shapeCircle2.DrawBoundingBox(eng->GetBuffer());
+			if (shapeCircle.Collison(shapeCircle2.GetBoundingBox()))
+				cout << "Kolizja";
+			shapeCircle2.VectorTranslation(-400, 0);
+			shapeCircle2.Draw(eng->GetBuffer());
+			shapeCircle2.DrawBoundingBox(eng->GetBuffer());
+
+			shapeCircle.Rotate(0.5, { 750,600 });
+			shapeCircle.Draw(eng->GetBuffer());
+			shapeCircle.DrawBoundingBox(eng->GetBuffer());
+
+			shapeCircle.Scaling(2, 1, { 750,600 });
+			shapeCircle.Draw(eng->GetBuffer());
+			shapeCircle.DrawBoundingBox(eng->GetBuffer());
+
+
+			ShapeObjectCircle soc = { shapeCircle2 };
+			soc.VectorTranslation(400, -400);
+			soc.Draw(eng->GetBuffer());
+			soc.SetShapeCircle({ { 0, 0, Red } , 50 });
+			soc.Draw(eng->GetBuffer());
+		}
 
 		eng->MainLoop();
 
 	return 0;
+}
+
+void Test() {
+
 }

@@ -1,7 +1,2 @@
-﻿  Drawer.cpp
-C:\Dev\Microsoft Visual Studio\workspace\Engine2D\Drawer.cpp(16,20): warning C4018: '<': signed/unsigned mismatch
-C:\Dev\Microsoft Visual Studio\workspace\Engine2D\Drawer.cpp(80,20): warning C4018: '<': signed/unsigned mismatch
-C:\Dev\Microsoft Visual Studio\workspace\Engine2D\Drawer.cpp(87,20): warning C4018: '<': signed/unsigned mismatch
-  main.cpp
-  Generating Code...
+﻿  main.cpp
   Engine2D.vcxproj -> C:\Dev\Microsoft Visual Studio\workspace\Engine2D\Debug\Engine2D.exe
