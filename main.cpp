@@ -8,6 +8,7 @@
 #include "ShapeCircle.h"
 #include "ShapeObjectCircle.h"
 #include "Engine.h"
+#include "BitmapHandler.h"
 
 using namespace std;
 
@@ -92,9 +93,9 @@ int main() {
 			drawer->DrawLineSegment(bb3.getPoints(), false);
 
 			if (bb1.Colission(bb1, bb2))
-				cout << " 1 i 2 nachodz¹";
+				cout << "Kolizja BoundingBox1 i BoundingBox2\n";
 			if (bb1.Colission(bb1, bb3))
-				cout << " 1 i 3 nachodz¹";
+				cout << "Kolizja BoundingBox1 i BoundingBox3\n";
 		}
 
 		/* Test Shape i ShapeObject */
@@ -107,7 +108,7 @@ int main() {
 			shapeCircle2.Draw(eng->GetBuffer());
 			shapeCircle2.DrawBoundingBox(eng->GetBuffer());
 			if (shapeCircle.Collison(shapeCircle2.GetBoundingBox()))
-				cout << "Kolizja";
+				cout << "Kolizja ShapeCircle1 i ShapeCircle2\n";
 			shapeCircle2.VectorTranslation(-400, 0);
 			shapeCircle2.Draw(eng->GetBuffer());
 			shapeCircle2.DrawBoundingBox(eng->GetBuffer());
@@ -127,6 +128,35 @@ int main() {
 			soc.SetShapeCircle({ { 0, 0, Red } , 50 });
 			soc.Draw(eng->GetBuffer());
 		}
+		/* Test BitmapHandler */
+		{
+			BitmapHandler bh;
+			bh.create(20, 20);
+			al_set_target_bitmap(bh.getBitmap());
+			al_clear_to_color(Red);
+			bh.save("Bitmaps\\bitmap1.bmp");
+
+			bh.load("Bitmaps\\bitmap1.bmp");
+			al_set_target_bitmap(eng->GetBuffer());
+			al_draw_bitmap(bh.getBitmap(), 0, 0, 0);
+		}
+		/* Test SpriteObject */
+		BitmapHandler bh1, bh2, bh3;
+		bh1.create(20, 20);
+		bh2.create(20, 20);
+		bh3.create(20, 20);
+		al_set_target_bitmap(bh1.getBitmap());
+		al_clear_to_color(Red);
+		al_set_target_bitmap(bh2.getBitmap());
+		al_clear_to_color(Green);
+		al_set_target_bitmap(bh3.getBitmap());
+		al_clear_to_color(Blue);
+		SpriteObject so;
+		so.addBitmap(bh1.getBitmap());
+		so.addBitmap(bh2.getBitmap());
+		so.addBitmap(bh3.getBitmap());
+		eng->spriteObject = &so;
+		eng->spriteObject->draw(eng->GetBuffer());
 
 		eng->MainLoop();
 

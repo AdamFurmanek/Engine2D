@@ -6,6 +6,8 @@
 #include <iostream>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_native_dialog.h>
+#include "allegro5\allegro_image.h"
+#include "SpriteObject.h"
 
 using namespace std;
 
@@ -16,6 +18,7 @@ private:
 	/* Wskaünik ekranu */
 	ALLEGRO_DISPLAY* display;
 	/* Wskaünik kolejki eventÛw */
+	ALLEGRO_EVENT_QUEUE* queueTimer;
 	ALLEGRO_EVENT_QUEUE* queue;
 	/* Wskaünik eventu */
 	ALLEGRO_EVENT event;
@@ -43,6 +46,8 @@ public:
 	void MainLoop();
 	void Render();
 	void Events();
+
+	SpriteObject* spriteObject;
 
 };
 

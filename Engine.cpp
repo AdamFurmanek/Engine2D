@@ -15,6 +15,7 @@ Engine::Engine()
 Engine::~Engine() {
 	/* Zwolnienie pamiêci */
 	al_destroy_display(display);
+	al_destroy_bitmap(buffer);
 	al_destroy_event_queue(queue);
 	al_destroy_timer(timer_FPS);
 }
@@ -26,6 +27,7 @@ Engine* Engine::GetInstance() {
 }
 
 void Engine::Init(string Title, bool fullscreen, resolution res) {
+
 	/* Inicjalizacja biblioteki Allegro 5. */
 	if (!al_init())
 		Exception("Failed to initialize Allegro5 library.\n");
@@ -77,7 +79,7 @@ void Engine::Init(string Title, bool fullscreen, resolution res) {
 	al_register_event_source(queue, al_get_display_event_source(display));
 
 	/* Utworzenie timera */
-	timer_FPS = al_create_timer(1.0 / 30);
+	timer_FPS = al_create_timer(1.0 / 15);
 	if (!timer_FPS)
 		Exception("Failed to create FPS timer!\n");
 
@@ -91,6 +93,9 @@ void Engine::Init(string Title, bool fullscreen, resolution res) {
 	al_install_mouse();
 	al_register_event_source(queue, al_get_mouse_event_source());
 
+	al_init_image_addon();
+
+	srand(NULL);
 }
 
 ALLEGRO_BITMAP* Engine::GetBuffer() {
@@ -137,9 +142,30 @@ void Engine::Events() {
 		/* Odœwie¿enie display. */
 	case ALLEGRO_EVENT_TIMER:
 		time++;
+		spriteObject->draw(buffer);
 		Render();
 		break;
-
+	case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+		spriteObject->x = rand() % 600;
+		spriteObject->y = rand() % 400;
+		break;
+	case ALLEGRO_EVENT_KEY_CHAR:
+		switch (event.keyboard.keycode) {
+		case 23:
+			spriteObject->y-=15;
+			break;
+		case 1:
+			spriteObject->x -= 15;
+			break;
+		case 19:
+			spriteObject->y += 15;
+			break;
+		case 4:
+			spriteObject->x += 15;
+			break;
+		}
+		break;
+	
 	default: break;
 	}
 }
