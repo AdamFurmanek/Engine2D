@@ -196,6 +196,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ShapeCircle.cpp" />
     <ClCompile Include="ShapeObjectCircle.cpp" />
+    <ClCompile Include="ShapeTriangle.cpp" />
     <ClCompile Include="SpriteObject.cpp" />
     <ClCompile Include="Viewport.cpp" />
   </ItemGroup>
@@ -213,6 +214,7 @@
     <ClInclude Include="ShapeCircle.h" />
     <ClInclude Include="ShapeObject.h" />
     <ClInclude Include="ShapeObjectCircle.h" />
+    <ClInclude Include="ShapeTriangle.h" />
     <ClInclude Include="SpriteObject.h" />
     <ClInclude Include="Viewport.h" />
   </ItemGroup>

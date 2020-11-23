@@ -10,7 +10,7 @@ using namespace std;
 class BitmapHandler
 {
 private:
-	ALLEGRO_BITMAP* bitmap;
+	ALLEGRO_BITMAP* bitmap = NULL;
 public:
 	ALLEGRO_BITMAP* getBitmap();
 	void create(int width, int height);

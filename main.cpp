@@ -6,12 +6,14 @@
 #include "Drawer.h"
 #include "Viewport.h"
 #include "ShapeCircle.h"
+#include "ShapeTriangle.h"
 #include "ShapeObjectCircle.h"
 #include "Engine.h"
 #include "BitmapHandler.h"
 
 using namespace std;
 
+/// Testowanie ró¿nych metod podanych na laboratoriach grafiki komputerowej, takich jak: DrawPixels(rysowanie pixeli), DrawTriangle(rysowanie trójk¹tów), DrawLineSegment(rysowanie punktu lub odcinka), Viewport(odcinanie punktów/odcinków/figur), DrawCircle(rysowanie ko³a), Fill(wype³nianie obszarów kolorem), BoundingBox(wykrywanie kolizji), ShapeObject(wykrywanie kolizji i rysowanie kszta³tu), BitmapHandler(Zapis/odczyt/wyœwietlanie bitmap). SpriteObject(wykrywanie kolizji, rysowanie kszta³ty, wyœwietlenie spritea, animacja)
 int main() {
 		Engine* eng = Engine::GetInstance();
 
@@ -121,6 +123,15 @@ int main() {
 			shapeCircle.Draw(eng->GetBuffer());
 			shapeCircle.DrawBoundingBox(eng->GetBuffer());
 
+			ShapeTriangle shapeTriangle = { {700, 30, Yellow},{750, 30, Yellow},{750, 90, Yellow} };
+			shapeTriangle.Draw(eng->GetBuffer());
+			shapeTriangle.DrawBoundingBox(eng->GetBuffer());
+			shapeTriangle.Scaling(2, 1, { 750,90,NULL });
+			shapeTriangle.Draw(eng->GetBuffer());
+			shapeTriangle.DrawBoundingBox(eng->GetBuffer());
+			shapeTriangle.Rotate(1, { 750,90,NULL });
+			shapeTriangle.Draw(eng->GetBuffer());
+			shapeTriangle.DrawBoundingBox(eng->GetBuffer());
 
 			ShapeObjectCircle soc = { shapeCircle2 };
 			soc.VectorTranslation(400, -400);
@@ -161,8 +172,4 @@ int main() {
 		eng->MainLoop();
 
 	return 0;
-}
-
-void Test() {
-
 }
